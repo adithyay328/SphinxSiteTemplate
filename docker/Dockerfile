@@ -5,15 +5,8 @@
 FROM sphinxdoc/sphinx
 
 # Installs python packages that we need
-RUN pip3 install furo sphinx-design myst-parser
-
-# Installs any apt packages we need and cleans up
-# cache afterwards
-# RUN apt-get update && apt-get install -y \
-#     watch \
-#     && apt purge
+RUN pip3 install furo sphinx-design myst-parser sphinx-autobuild
 
 # Runs our make script, building site HTML
-CMD cd /app/site; while sleep 2; do make html; done
-
-#watch -n 2 make html 
+# CMD cd /app/site; while sleep 2; do make html; done
+CMD cd /app/site; sphinx-autobuild source build/html
